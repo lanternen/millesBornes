@@ -17,7 +17,7 @@ public class Sabot implements Iterable <Carte> {
 
 	}
 	
-	public Iterator<Carte> iterator() {
+	public Iterateur iterator() {
 		return new Iterateur();
 	}
 	
@@ -37,8 +37,18 @@ public class Sabot implements Iterable <Carte> {
 	}
 	
 	
+	public Carte piocher() {
+		
+		Iterateur mainNext = iterator();
+		Iterateur mainRemove = iterator();
+		Carte cartePiochee = mainNext.next();
+		mainRemove.remove();
+		return cartePiochee;
+	}
 	
-	
+	// j'ai fait deux main pour la pioche parce que faire next (pour obtenir la 1ère carte)
+	// incrémente l'indice de l'itérateurr et ça ferait que le remove qui suit supprimerait
+	//la 2e carte et pas la première
 	
 	
 	
