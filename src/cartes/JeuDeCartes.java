@@ -30,10 +30,14 @@ public class JeuDeCartes {
 	}
 
 	public String affichageJeuDeCartes() {
-//		for (Configuration configuration : typesDeCartes) {
-//			
-//		}
-		return "c";
+		
+		StringBuilder jeuComplet = new StringBuilder();
+		//for (Configuration configuration : typesDeCartes) {
+		for (int i = 0; i < typesDeCartes.length; i++) {
+			jeuComplet.append(typesDeCartes[i].getNbExemplaires() + " " + typesDeCartes[i].getCarte() + "\n");
+		}
+		
+		return jeuComplet.toString();
 	}
 	
 	private static class Configuration extends Carte {
@@ -50,6 +54,10 @@ public class JeuDeCartes {
 
 		public int getNbExemplaires() {
 			return nbExemplaires;
+		}
+
+		public Carte getCarte() {
+			return carte;
 		}
 		
 		
