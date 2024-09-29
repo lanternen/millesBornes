@@ -31,22 +31,24 @@ public class Sabot implements Iterable <Carte> {
 		if (nbCartes < cartes.length) {
 			cartes[nbCartes] = carte;
 			nbOperations++;
+			nbCartes++;
 		} else {
 			throw new ArrayIndexOutOfBoundsException();
 		}
 	}
 	
-	
 	public Carte piocher() {
 		
-		Iterateur mainNext = iterator();
-		Iterateur mainRemove = iterator();
+		Iterator<Carte> mainNext = iterator();
+		//Iterateur mainRemove = iterator();
 		Carte cartePiochee = mainNext.next();
-		mainRemove.remove();
+		//mainRemove.remove();
+		mainNext.remove();
 		return cartePiochee;
+		
 	}
 	
-	// j'ai fait deux main pour la pioche parce que faire next (pour obtenir la 1ère carte)
+	// j'ai fait deux "main" pour la pioche parce que faire next (pour obtenir la 1ère carte)
 	// incrémente l'indice de l'itérateurr et ça ferait que le remove qui suit supprimerait
 	//la 2e carte et pas la première
 	
@@ -57,7 +59,7 @@ public class Sabot implements Iterable <Carte> {
 		
 		private int indiceIterateur = 0;
 		private boolean nextEffectue = false;
-		private int nbOperationsReference;
+		private int nbOperationsReference = nbOperations;
 		
 		public boolean hasNext() {
 			return indiceIterateur < nbCartes;
@@ -71,15 +73,15 @@ public class Sabot implements Iterable <Carte> {
 				nextEffectue = true;
 				return carte;
 			} else {
-				throw new IllegalStateException();
+				throw new NoSuchElementException();
 			}
 		}
 		
 		
 		public void remove() {
 			verificationConcurrence();
-			if (nbCartes < 1 || nextEffectue) {
-				throw new NoSuchElementException();
+			if (nbCartes < 1 || !nextEffectue) {	// ! avant nextEffectue !!!!!
+				throw new IllegalStateException();
 			}
 			for (int i = indiceIterateur; i < nbCartes; i++) {
 				cartes[i] = cartes[i+1];

@@ -2,9 +2,14 @@ package cartes;
 
 public class JeuDeCartes {
 
+	private static final int NB_MAX = 106;
+	private Configuration[] typesDeCartes = new Configuration[19];		
 	
-	private Configuration typesDeCartes[] = new Configuration[19];		
 	
+//	public Configuration[] getTypesDeCartes() {
+//		return typesDeCartes;
+//	}
+
 	
 	public JeuDeCartes() {
 		
@@ -43,6 +48,22 @@ public class JeuDeCartes {
 		
 		return jeuComplet.toString();		
 	}
+	
+	
+	public Carte[] getCartes() {
+		Carte[] cartes = new Carte[NB_MAX];
+		int indiceDeck = 0;		//l'indice du tab qu'on renvoie
+		for (int i = 0; i < 19; i++) {		// pour chacune des configurations (chaque case possible de typesDeCartes)
+			Configuration config = typesDeCartes[i];	// on créé une configuration
+			for (int j = 0; j < config.getNbExemplaires(); j++) {	//pour chaque config, on répète pour le nombre d'exemplaires
+				cartes[indiceDeck] = config.getCarte();		//on met la carte dans le tab renvoyé
+				indiceDeck++;				//on incrémente l'indice du tab renvoyé
+			}
+		}
+		
+		return cartes;
+	}
+		
 	
 	private static class Configuration extends Carte {
 		
