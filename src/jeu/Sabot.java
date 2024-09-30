@@ -5,15 +5,16 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import cartes.Carte;
+import cartes.JeuDeCartes;
 
 public class Sabot implements Iterable <Carte> {
 
 	private Carte[] cartes;
-	private int nbCartes = 0;
+	private int nbCartes = JeuDeCartes.NB_MAX;
 	private int nbOperations = 0;
-	
-	public Sabot(Carte[] cartes, int nbCartesMax) {
-		this.cartes = new Carte[nbCartesMax];
+	public Sabot(Carte[] cartes) {
+		this.cartes = cartes;
+		System.out.println(cartes);
 
 	}
 	
