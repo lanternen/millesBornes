@@ -8,6 +8,10 @@ public class Borne extends Carte {
 		this.km = km;
 	}
 	
+	public int getKm() {
+		return km;
+	}
+	
 	@Override
 	public String toString() {
 		return km + " Km";
@@ -16,7 +20,7 @@ public class Borne extends Carte {
 	@Override
 	public boolean equals (Object obj) {
 		if (obj instanceof Borne bo) {
-			return this.km == bo.km;
+			return this.km == bo.getKm();
 		}
 		return false;
 	}
