@@ -30,32 +30,32 @@ public class TestSabot {
 
 	// 4.2.b
 	public void questionB() {
-//		for (Iterator<Carte> iterator = sabot.iterator(); iterator.hasNext();) {
-//			System.out.println("Je pioche " + iterator.next());
-//			iterator.remove();
-//		}
+		for (Iterator<Carte> iterator = sabot.iterator(); iterator.hasNext();) {
+			System.out.println("Je pioche " + iterator.next());
+			iterator.remove();
+		}
 	}
 
 	// 4.2.c
 	public void questionC() {
-//		Carte cartePiochee = sabot.piocher();
-//		System.out.println("Je pioche " + cartePiochee);
-//		for (Iterator<Carte> iterator = sabot.iterator(); iterator.hasNext();) {
-//			Carte carte = iterator.next();
-//			System.out.println("Je pioche " + carte);
-//			iterator.remove();
-//			Carte cartePiochee = sabot.piocher();
-//			sabot.ajouterCarte(new Botte(cartes.Type.ACCIDENT));
-//		}
-//		Iterator<Carte> iterator = sabot.iterator();
-//		System.out.println("\nLa pioche contient encore des cartes ? " + iterator.hasNext());
+		Carte cartePiochee = sabot.piocher();
+		System.out.println("Je pioche " + cartePiochee);
+		for (Iterator<Carte> iterator = sabot.iterator(); iterator.hasNext();) {
+			Carte carte = iterator.next();
+			System.out.println("Je pioche " + carte);
+			iterator.remove();
+			Carte cartePiochee = sabot.piocher();
+			sabot.ajouterCarte(new Botte(cartes.Type.ACCIDENT));
+		}
+		Iterator<Carte> iterator = sabot.iterator();
+		System.out.println("\nLa pioche contient encore des cartes ? " + iterator.hasNext());
 	}
 
 	public static void main(String[] args) {
 		TestSabot testPioche = new TestSabot();
-		testPioche.questionA();
+//		testPioche.questionA();
 //		testPioche.questionB();
-//		testPioche.questionC();
+		testPioche.questionC();
 	}
 
 }

@@ -33,10 +33,9 @@ public class JeuDeCartes {
 	
 	
 	
-	public JeuDeCartes() {
-
-		
-	}
+//	public JeuDeCartes() {
+//
+//	}
 
 	public String affichageJeuDeCartes() {
 		
@@ -49,6 +48,12 @@ public class JeuDeCartes {
 		
 		return jeuComplet.toString();		
 	}
+	
+	
+	public static int  getNbCartesMax() {
+		return NB_MAX;
+	}
+	
 	
 	public int getCount() {
 		int count = 0;
@@ -79,7 +84,7 @@ public class JeuDeCartes {
 	
 	
 	public boolean checkCount() {
-		return true;
+		return true;	//temporaire, fonction à faire
 	}
 	
 	
@@ -104,6 +109,7 @@ public class JeuDeCartes {
 		public Carte getCarte() {
 			return carte;
 		}
+		
 		
 		
 	}

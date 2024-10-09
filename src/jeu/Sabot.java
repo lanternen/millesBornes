@@ -10,12 +10,12 @@ import cartes.JeuDeCartes;
 public class Sabot implements Iterable <Carte> {
 
 	private Carte[] cartes;
-	private int nbCartes = JeuDeCartes.NB_MAX;
+	private int nbCartes = JeuDeCartes.getNbCartesMax();
 	private int nbOperations = 0;
 	public Sabot(Carte[] cartes) {
 		this.cartes = cartes;
-		System.out.println(cartes);
-
+		//System.out.println(cartes);	//c'est ça qui me printait [Lcartes.Carte;@1175e2db
+						// cartes est un tab, évidemment qu'on peut pas le print comme ça
 	}
 	
 	public Iterateur iterator() {
@@ -29,12 +29,12 @@ public class Sabot implements Iterable <Carte> {
 	}
 	
 	public void ajouterCarte(Carte carte) {
-		if (nbCartes < cartes.length) {
+		if (nbCartes < JeuDeCartes.getNbCartesMax()) {
 			cartes[nbCartes] = carte;
 			nbOperations++;
 			nbCartes++;
 		} else {
-			throw new ArrayIndexOutOfBoundsException();
+			throw new IllegalStateException();
 		}
 	}
 	
@@ -78,13 +78,13 @@ public class Sabot implements Iterable <Carte> {
 			}
 		}
 		
-		
+		@Override
 		public void remove() {
 			verificationConcurrence();
 			if (nbCartes < 1 || !nextEffectue) {	// ! avant nextEffectue !!!!!
 				throw new IllegalStateException();
 			}
-			for (int i = indiceIterateur; i < nbCartes; i++) {
+			for (int i = indiceIterateur - 1; i < nbCartes - 1; i++) {
 				cartes[i] = cartes[i+1];
 			}
 			nextEffectue = false;
