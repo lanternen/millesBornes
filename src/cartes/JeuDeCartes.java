@@ -84,7 +84,28 @@ public class JeuDeCartes {
 	
 	
 	public boolean checkCount() {
-		return true;	//temporaire, fonction à faire
+//		Carte[] cartes = donnerCartes();
+//		int count = 0;
+//		for (int i = 0; i < 19; i++)
+//		{
+//			Carte c = typesDeCartes[i].getCarte();
+//			for (int j = 0; j < cartes.length; j++)
+//			{
+//				if (cartes[j].equals(c))
+//				{
+//					count++;
+//				}
+//			}
+//			if (typesDeCartes[i].getNbExemplaires() != count)
+//			{
+//				return false;
+//			}
+//			count = 0;
+//		}
+//		return true;
+		
+		Carte[] cartes = donnerCartes();
+		return cartes.length == getCount();
 	}
 	
 	

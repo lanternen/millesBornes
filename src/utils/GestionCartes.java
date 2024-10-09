@@ -1,6 +1,8 @@
 package utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
@@ -52,15 +54,46 @@ public class GestionCartes {
 			return false;
 		}
 		
-		// rajouter la comparaison de chaque élément
+		Iterator<E> iter = liste1.iterator();
+		E elt;
+		
+		while (iter.hasNext()) {
+			elt = iter.next();
+			if (Collections.frequency(liste1, elt) != Collections.frequency(liste2, elt)) {
+				return false;
+			}
+		}
 		
 		return true;
 		
-		
 	}
 	
-
-
+	
+	public static <E> List <E> rassembler(List <E> liste) {
+		List <E> listeRes = new ArrayList<>(liste.size());
+		Iterator<E> iter = liste.iterator();
+		E elt;
+		
+		while(iter.hasNext()) {
+			elt = iter.next();
+			if (!(listeRes.contains(elt))) {
+				for (int i = 0; i< Collections.frequency(listeRes, elt); i++) {
+					listeRes.add(elt);
+				}
+			}
+		}
+		return listeRes;
+	}
+	
+	
+	public static <E> boolean verifierRassemblement(List<E> liste) {
+		
+		
+		//remplir
+		
+		
+		return true;
+	}
 
 
 
