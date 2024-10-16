@@ -37,7 +37,7 @@ public class GestionCartes {
 		return e;
 	}
 
-	public static <E> List<E> melange (List<E> l) {
+	public static <E> List<E> melanger (List<E> l) {
 		int size = l.size();
 		List<E> listeMelange = new ArrayList<>(size);
 		
@@ -49,7 +49,7 @@ public class GestionCartes {
 	}
 	
 	
-	public <E> boolean verifierMelange(List<E> liste1, List<E> liste2) {
+	public static <E> boolean verifierMelange(List<E> liste1, List<E> liste2) {
 		if (liste1.size() != liste2.size()) {
 			return false;
 		}
@@ -85,16 +85,44 @@ public class GestionCartes {
 		return listeRes;
 	}
 	
+	private <T> boolean trouverelementFinListe(List<T> listeRassemble, T element, int index) {
+		int count = 0;
+		Iterator<T> iter = listeRassemble.iterator();
+		T elt;
+		
+		while (iter.hasNext()) {
+			elt  = iter.next();
+			if ((count == index) && elt == element)
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
 	public static <E> boolean verifierRassemblement(List<E> liste) {
 		
-		
-		//remplir
-		
-		
+		E prev = null;
+
+		int i = 0;
+		for (ListIterator<E> iter = liste.listIterator(); iter.hasNext();) {
+			int j = 0;
+			E suivant = iter.next();
+			if (prev != null && !suivant.equals(prev)) {
+				for (ListIterator<E> iter2 = liste.listIterator(); iter2.hasNext();)
+				{
+					E suivant2 = iter2.next();
+					if (j > i && suivant2.equals(prev)) {	//pas entièrement convaincu
+						return false;
+					}
+					j++;
+				}
+			}
+			prev = suivant;
+			i++;
+		}
 		return true;
 	}
-
-
 
 }

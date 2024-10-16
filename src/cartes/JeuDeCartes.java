@@ -131,7 +131,11 @@ public class JeuDeCartes {
 			return carte;
 		}
 		
-		
+//		@Override
+//		public boolean equals(Configuration conf)
+//		{
+//			return false;
+//		}
 		
 	}
 	

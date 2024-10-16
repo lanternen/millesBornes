@@ -15,6 +15,18 @@ public class TestGestionCartes {
 		for (Carte carte : jeu.donnerCartes()) {
 			listeCarteNonMelangee.add(carte);
 		}
+		
+		List<Carte> listeCartes = new ArrayList<>(listeCarteNonMelangee);
+		System.out.println(listeCartes);
+		listeCartes = GestionCartes.melanger(listeCartes);
+		System.out.println(listeCartes);
+		System.out.println("liste mélangée sans erreur ? "
+		+ GestionCartes.verifierMelange(listeCarteNonMelangee, listeCartes));
+		listeCartes = GestionCartes.rassembler(listeCartes); //j'ai enlevé le V2 à la fin de rassembler
+		System.out.println(listeCartes);
+		System.out.println("liste rassemblée sans erreur ? "
+		+ GestionCartes.verifierRassemblement(listeCartes));
+		
 //		List<Carte> listeCartes = new ArrayList<>(listeCarteNonMelangee);
 //		System.out.println(listeCartes);
 //		listeCartes = GestionCartes.melanger(listeCartes);
@@ -25,6 +37,13 @@ public class TestGestionCartes {
 //		System.out.println(listeCartes);
 //		System.out.println("liste rassembl�e sans erreur ? " + GestionCartes.verifierRassemblement(listeCartes));
 
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }
