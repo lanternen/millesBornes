@@ -13,7 +13,8 @@ public class Jeu {
 	
 	public Jeu (Carte[] cartes){
 		listeCartes = GestionCartes.melanger(Arrays.asList(cartes));
-		sabot = new Sabot( listeCartes.toArray(new Carte[0]));	// cast
+		sabot = new Sabot( listeCartes.toArray(new Carte[0]));	// cast changé en new Carte[0]
+																// après correction SonarLynt
 	}
 	
 }
