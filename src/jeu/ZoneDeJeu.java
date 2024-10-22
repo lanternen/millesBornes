@@ -47,4 +47,19 @@ public class ZoneDeJeu {
 	}
 	
 	
+	public boolean peutAvancer() {
+		return (!pileLimite.isEmpty() && pileLimite.get(pileLimite.size() - 1).toString().equals("feu vert"));
+	}		// le doute m'habite (pour le equals("feu vert")
+	
+	
+	public boolean estDepotFeuVertAutorise() {
+		return (!pileLimite.isEmpty() && !pileLimite.get(pileLimite.size() - 1).toString().equals("feu vert"));
+	}		// le doute m'habite encore plus 
+	
+	public boolean estDepotBorneAutorise() {
+		return peutAvancer() && (donnerKmParcourus() < 1000); 
+				//&& (donnerLimitationVitesse() < pileLimite.get(pileLimite.size() - 1) instanceof Limite);
+	}			// il faut finir en réglant ce problèm sur la vérification de la vitesse
+	
+	
 }

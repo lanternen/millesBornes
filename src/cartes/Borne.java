@@ -16,7 +16,7 @@ public class Borne extends Carte {
 	public String toString() {
 		return km + " Km";
 	}
-
+	
 	@Override
 	public boolean equals (Object obj) {
 		if (obj instanceof Borne bo) {
