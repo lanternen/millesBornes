@@ -6,8 +6,11 @@ import java.util.List;
 import cartes.Bataille;
 import cartes.Borne;
 import cartes.Carte;
+import cartes.Cartes;
+import cartes.DebutLimite;
 import cartes.FinLimite;
 import cartes.Limite;
+import cartes.Parade;
 
 public class ZoneDeJeu {
 
@@ -16,10 +19,20 @@ public class ZoneDeJeu {
 	private List<Borne> pileBorne = new ArrayList<>();
 	
 	
+	private <E> E donnerSommet(List<E> pile) {
+		if (!pile.isEmpty()) {
+			return pile.get(pile.size() - 1);
+		}
+		return null;
+	}
 	
 	public int donnerLimitationVitesse() {
 		int limite = 50;
-		if (pileLimite.isEmpty() || pileLimite.get(pileLimite.size() - 1) instanceof FinLimite) { //- 1 à revoir
+//		if (pileLimite.isEmpty() || pileLimite.get(pileLimite.size() - 1) instanceof FinLimite) { //- 1 à revoir
+//			limite = 200;
+//		}
+		
+		if (pileLimite.isEmpty() || donnerSommet(pileLimite) instanceof FinLimite) { //- 1 à revoir
 			limite = 200;
 		}
 		
@@ -48,18 +61,58 @@ public class ZoneDeJeu {
 	
 	
 	public boolean peutAvancer() {
-		return (!pileLimite.isEmpty() && pileLimite.get(pileLimite.size() - 1).toString().equals("feu vert"));
-	}		// le doute m'habite (pour le equals("feu vert")
+//		return (!pileBataille.isEmpty() && pileBataille.get(pileBataille.size() - 1).equals(Cartes.FEU_VERT));
+		Bataille b = donnerSommet(pileBataille);
+		if (b != null)
+		{
+			return b.equals(Cartes.FEU_VERT);
+		}
+		return false;
+	}	
+	
 	
 	
 	public boolean estDepotFeuVertAutorise() {
-		return (!pileLimite.isEmpty() && !pileLimite.get(pileLimite.size() - 1).toString().equals("feu vert"));
-	}		// le doute m'habite encore plus 
+		if (!pileLimite.isEmpty()) {
+			return true;
+		}
+		Limite l = donnerSommet(pileLimite);
+		if (l != null) {
+			return (l.equals(Cartes.FEU_ROUGE));
+		} else {
+			Bataille b = donnerSommet(pileBataille);
+			return (b instanceof Parade && !(b.equals(Cartes.FEU_VERT)));
+		}
+		
+	}		
 	
 	public boolean estDepotBorneAutorise() {
-		return peutAvancer() && (donnerKmParcourus() < 1000); 
-				//&& (donnerLimitationVitesse() < pileLimite.get(pileLimite.size() - 1) instanceof Limite);
-	}			// il faut finir en réglant ce problèm sur la vérification de la vitesse
+		Bataille bat = donnerSommet(pileBataille);
+		Borne b = donnerSommet(pileBorne);
+		if (bat == null) {
+			return false;
+		} else {
+			return  !(bat.equals(Cartes.FEU_ROUGE))
+				&& (b.getKm() + (donnerKmParcourus()) < 1000)
+				&& b.getKm() <= donnerLimitationVitesse();
+		}
+	}			
+	
+	
+	 public boolean estDepotLimiteAutorise(Limite limite) {
+		 if (limite instanceof DebutLimite) {
+			 return pileLimite.isEmpty() || (donnerSommet(pileLimite) instanceof FinLimite);
+		 }
+		 if (limite instanceof FinLimite) {
+			 return (donnerSommet(pileLimite) instanceof DebutLimite);
+		 }
+		 else return false;
+	 }
+	
+	
+	
+	
+	
 	
 	
 }
