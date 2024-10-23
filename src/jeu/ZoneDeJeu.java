@@ -26,6 +26,7 @@ public class ZoneDeJeu {
 		}
 		return null;
 	}
+	// pour eviter de faire pileLimite.get(pileLimite.size() -1) tout le temps
 	
 	public int donnerLimitationVitesse() {
 		int limite = 50;
@@ -55,34 +56,35 @@ public class ZoneDeJeu {
 			pileBorne.add(b);
 		} else if (c instanceof Limite l){
 			pileLimite.add(l);
-		} else if (c instanceof Bataille b) {
-			pileBataille.add(b);
+		} else if (c instanceof Bataille bat) {
+			pileBataille.add(bat);
 		}
 	}
 	
 	
 	public boolean peutAvancer() {
 //		return (!pileBataille.isEmpty() && pileBataille.get(pileBataille.size() - 1).equals(Cartes.FEU_VERT));
-		Bataille b = donnerSommet(pileBataille);
-		if (b != null)
-		{
-			return b.equals(Cartes.FEU_VERT);
-		}
-		return false;
+		return (!pileBataille.isEmpty() && donnerSommet(pileBataille).equals(Cartes.FEU_VERT));
+//		Bataille b = donnerSommet(pileBataille);
+//		if (b != null)
+//		{
+//			return b.equals(Cartes.FEU_VERT);
+//		}
+//		return false;
 	}	
 	
 	
 	
 	public boolean estDepotFeuVertAutorise() {
-		if (pileLimite.isEmpty()) {
+		if (pileBataille.isEmpty()) {
 			return true;
 		}
-		Limite l = donnerSommet(pileLimite);
+		Bataille l = donnerSommet(pileBataille);
 		if (l != null) {
 			return (l.equals(Cartes.FEU_ROUGE));
 		} else {
-			Bataille b = donnerSommet(pileBataille);
-			return (b instanceof Parade && !(b.equals(Cartes.FEU_VERT)));
+			//Bataille b = donnerSommet(pileBataille);
+			return (l instanceof Parade && !(l.equals(Cartes.FEU_VERT)));
 		}
 		
 	}		
@@ -91,7 +93,7 @@ public class ZoneDeJeu {
 		Bataille bat = donnerSommet(pileBataille);
 		Borne b = donnerSommet(pileBorne);
 		return  (b != null) && (bat != null) && !(bat.equals(Cartes.FEU_ROUGE))
-				&& (b.getKm() + (donnerKmParcourus()) < 1000)
+				&& (b.getKm() + donnerKmParcourus() <= 1000)
 				&& b.getKm() <= donnerLimitationVitesse();
 
 	}			
@@ -118,7 +120,7 @@ public class ZoneDeJeu {
 				return estDepotFeuVertAutorise(); // tout simplement
 			} else {
 				return (s instanceof Attaque) && (s.getType().equals(bataille.getType()));
-			}	// ai effacé (s != null) d'après recommandation Sonar Lynt
+			}	// ai efface (s != null) d'apres recommandation Sonar Lynt
 		}
 		return false;
 	}
@@ -126,7 +128,7 @@ public class ZoneDeJeu {
 	
 	public boolean estDepotAutorise(Carte carte) {
 		
-		//j'arrive pas à le faire avec switch, décidément
+		//j'arrive pas à le faire avec switch, decidement
 		if (carte instanceof Borne) {
 			return estDepotBorneAutorise();
 		}
@@ -136,6 +138,7 @@ public class ZoneDeJeu {
 		if (carte instanceof Limite l) {
 			return estDepotLimiteAutorise(l);
 		}
+		
 		return false;		
 	}
 	

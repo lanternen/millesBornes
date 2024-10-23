@@ -77,7 +77,8 @@ public class GestionCartes {
 		while(iter.hasNext()) {
 			elt = iter.next();
 			if (!(listeRes.contains(elt))) {
-				for (int i = 0; i< Collections.frequency(listeRes, elt); i++) {
+				int n = Collections.frequency(liste, elt);
+				for (int i = 0; i< n; i++) {
 					listeRes.add(elt);
 				}
 			}
