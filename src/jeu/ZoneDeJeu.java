@@ -3,6 +3,7 @@ package jeu;
 import java.util.ArrayList;
 import java.util.List;
 
+import cartes.Attaque;
 import cartes.Bataille;
 import cartes.Borne;
 import cartes.Carte;
@@ -73,7 +74,7 @@ public class ZoneDeJeu {
 	
 	
 	public boolean estDepotFeuVertAutorise() {
-		if (!pileLimite.isEmpty()) {
+		if (pileLimite.isEmpty()) {
 			return true;
 		}
 		Limite l = donnerSommet(pileLimite);
@@ -89,13 +90,10 @@ public class ZoneDeJeu {
 	public boolean estDepotBorneAutorise() {
 		Bataille bat = donnerSommet(pileBataille);
 		Borne b = donnerSommet(pileBorne);
-		if (bat == null) {
-			return false;
-		} else {
-			return  !(bat.equals(Cartes.FEU_ROUGE))
+		return  (b != null) && (bat != null) && !(bat.equals(Cartes.FEU_ROUGE))
 				&& (b.getKm() + (donnerKmParcourus()) < 1000)
 				&& b.getKm() <= donnerLimitationVitesse();
-		}
+
 	}			
 	
 	
@@ -109,8 +107,37 @@ public class ZoneDeJeu {
 		 else return false;
 	 }
 	
+	public boolean estDepotBatailleAutorise(Bataille bataille) {
+		Bataille s = donnerSommet(pileBataille);
+		if (bataille instanceof Attaque) {
+			return (s != null) && !s.equals(Cartes.FEU_ROUGE);
+		}
+		if (bataille instanceof Parade) {
+			if (bataille.equals(Cartes.FEU_VERT))
+			{
+				return estDepotFeuVertAutorise(); // tout simplement
+			} else {
+				return (s instanceof Attaque) && (s.getType().equals(bataille.getType()));
+			}	// ai effacé (s != null) d'après recommandation Sonar Lynt
+		}
+		return false;
+	}
 	
 	
+	public boolean estDepotAutorise(Carte carte) {
+		
+		//j'arrive pas à le faire avec switch, décidément
+		if (carte instanceof Borne) {
+			return estDepotBorneAutorise();
+		}
+		if (carte instanceof Bataille bat) {
+			return estDepotBatailleAutorise(bat);
+		}
+		if (carte instanceof Limite l) {
+			return estDepotLimiteAutorise(l);
+		}
+		return false;		
+	}
 	
 	
 	
