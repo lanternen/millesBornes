@@ -89,12 +89,16 @@ public class ZoneDeJeu {
 		
 	}		
 	
-	public boolean estDepotBorneAutorise() {
-		Bataille bat = donnerSommet(pileBataille);
-		Borne b = donnerSommet(pileBorne);
-		return (b != null) && (bat != null) && !(bat.equals(Cartes.FEU_ROUGE))
-				&& b.getKm() + donnerKmParcourus() <= 1000
-				&& b.getKm() <= donnerLimitationVitesse();
+	public boolean estDepotBorneAutorise(Borne b) {
+//		Bataille bat = donnerSommet(pileBataille);
+//		Borne b = donnerSommet(pileBorne);
+//		return (b != null) && (bat != null) && !(bat.equals(Cartes.FEU_ROUGE))
+//				&& b.getKm() + donnerKmParcourus() <= 1000
+//				&& b.getKm() <= donnerLimitationVitesse();
+		
+		return peutAvancer()
+				&& b.getKm() <= donnerLimitationVitesse()
+				&& b.getKm() + donnerKmParcourus() <= 1000;
 	}			
 	
 	
@@ -134,8 +138,8 @@ public class ZoneDeJeu {
 	public boolean estDepotAutorise(Carte carte) {
 		
 		//j'arrive pas à le faire avec switch, decidement
-		if (carte instanceof Borne) {
-			return estDepotBorneAutorise();
+		if (carte instanceof Borne b) {
+			return estDepotBorneAutorise(b);
 		}
 		if (carte instanceof Bataille bat) {
 			return estDepotBatailleAutorise(bat);
