@@ -12,12 +12,12 @@ public abstract class Probleme extends Carte {
 		return type;
 	}
 	
-	@Override
-	public boolean equals(Object o) {
-		if (o != null) {
-			return this.getClass().equals(o.getClass());
-		}
-		return false;
-	}
+//	@Override
+//	public boolean equals(Object o) {
+//		if (o != null) {
+//			return this.getClass().equals(o.getClass());
+//		}
+//		return false;
+//	}
 	
 }

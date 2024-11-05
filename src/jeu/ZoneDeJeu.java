@@ -14,7 +14,7 @@ import cartes.Limite;
 import cartes.Parade;
 
 public class ZoneDeJeu {
-
+	
 	private List<Limite> pileLimite = new ArrayList<>();
 	private List<Bataille> pileBataille = new ArrayList<>();
 	private List<Borne> pileBorne = new ArrayList<>();
@@ -112,18 +112,19 @@ public class ZoneDeJeu {
 	public boolean estDepotBatailleAutorise(Bataille bataille) {
 		Bataille s = donnerSommet(pileBataille);
 		if (bataille instanceof Attaque) {
-			return (s != null) && !s.equals(Cartes.FEU_ROUGE);
+			return peutAvancer();
+			//return (s != null) && !s.equals(Cartes.FEU_ROUGE);
 		}
 		if (bataille instanceof Parade) {
 			if (bataille.equals(Cartes.FEU_VERT))
 			{
 				return estDepotFeuVertAutorise(); // tout simplement
-			} 
-		} else {
+			} else {
 				return (s instanceof Attaque) && (s.getType().equals(bataille.getType()));
-		}	// ai efface (s != null) d'apres recommandation Sonar Lynt
+			} 	// ai efface (s != null) d'apres recommandation Sonar Lynt
+		}	
 		
-		//c'est cette fonction qui merde
+		//c'est cette fonction qui ne pose problème (d'aprè professeur et je suis d'accord))
 		//
 		
 		return false;
