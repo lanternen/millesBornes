@@ -27,7 +27,7 @@ public class ZoneDeJeu {
 	
 	private <E> E donnerSommet(List<E> pile) {
 		if (!pile.isEmpty()) {
-			return pile.get(pile.size() - 1);
+			return pile.get(0);
 		}
 		return null;
 	}
@@ -58,7 +58,7 @@ public class ZoneDeJeu {
 	public void deposer(Carte carte) {
 		
 		if (carte instanceof Borne borne) {
-			pileBorne.add(borne);
+			pileBorne.add(0, borne);
 		} else if (carte instanceof Limite limite){
 			pileLimite.add(limite);
 		} else if (carte instanceof Bataille bataille) {
@@ -72,6 +72,10 @@ public class ZoneDeJeu {
 	public boolean peutAvancer() {
 //		return (!pileBataille.isEmpty() && pileBataille.get(pileBataille.size() - 1).equals(Cartes.FEU_VERT));
 		
+		if ((!pileBataille.isEmpty() && estPrioritaire()) ) {
+			return true;
+		}
+		
 		Bataille sommet = donnerSommet(pileBataille);
 		if (sommet != null) {
 			
@@ -83,8 +87,7 @@ public class ZoneDeJeu {
 //			}
 //			
 			
-			return     (!pileBataille.isEmpty() && estPrioritaire()) 
-					|| (sommet.equals(Cartes.FEU_VERT))
+			return  (sommet != null) &&(sommet.equals(Cartes.FEU_VERT))
 					|| (sommet instanceof Parade && estPrioritaire())
 					|| (sommet instanceof Attaque && sommet.equals(Cartes.FEU_ROUGE) && estPrioritaire())
 					|| (sommet instanceof Attaque && !sommet.equals(Cartes.FEU_ROUGE) && bottes.contains(new Botte(sommet.getType())) && estPrioritaire())
@@ -192,10 +195,7 @@ public class ZoneDeJeu {
 		if (carte instanceof Limite limite) {
 			return estDepotLimiteAutorise(limite);
 		}
-		if (carte instanceof Botte botte) {
-			return true;
-		}
-		return false;		
+		return (carte instanceof Botte);	
 	}
 	
 	
