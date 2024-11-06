@@ -103,14 +103,16 @@ public class ZoneDeJeu {
 	
 	
 	 public boolean estDepotLimiteAutorise(Limite limite) {
-		 if (limite instanceof DebutLimite) {
-			 return pileLimite.isEmpty() || (donnerSommet(pileLimite) instanceof FinLimite);
-		 }
-		 else return false;
-//		 if (limite instanceof FinLimite) {
-//			 return (donnerSommet(pileLimite) instanceof DebutLimite);
+//		 if (limite instanceof DebutLimite) {
+//			 return pileLimite.isEmpty() || (donnerSommet(pileLimite) instanceof FinLimite);
 //		 }
-//		 else return false;
+//		 
+//		 return false;
+		 if (limite instanceof FinLimite) {
+			 return (donnerSommet(pileLimite) instanceof DebutLimite);
+		 } else {
+			 return (donnerSommet(pileLimite) == null) || donnerSommet(pileLimite) instanceof FinLimite;
+		 }
 	 }
 	
 	public boolean estDepotBatailleAutorise(Bataille bataille) {
