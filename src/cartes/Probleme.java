@@ -12,12 +12,17 @@ public abstract class Probleme extends Carte {
 		return type;
 	}
 	
-//	@Override
-//	public boolean equals(Object o) {
-//		if (o != null) {
-//			return this.getClass().equals(o.getClass());
-//		}
-//		return false;
-//	}
+	@Override
+	public int hashCode() {
+		return 31 * getType().hashCode();
+	}	
+	
+	@Override
+	public boolean equals(Object o) {
+		if (super.equals(o) && o instanceof Probleme probleme) {
+				return type.equals(probleme.getType()); 		//merge deux if en un suite à recommandation SonarLynt
+			}
+		return false;
+	}
 	
 }

@@ -6,15 +6,12 @@ public abstract class Carte {
 	
 	@Override
 	public int hashCode() {
-		return 31 *getClass().hashCode();
+		return 31 * getClass().hashCode();
 	}
 	
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Carte ca) {
-			return toString().equals(ca.toString());
-		}
-		return false;
+		return o != null && getClass().equals(o.getClass());
 	}
 	
 	

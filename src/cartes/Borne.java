@@ -17,12 +17,17 @@ public class Borne extends Carte {
 		return km + " Km";
 	}
 	
-//	@Override
-//	public boolean equals (Object obj) {
-//		if (obj instanceof Borne bo) {
-//			return this.km == bo.getKm();
-//		}
-//		return false;
-//	}
+	@Override
+	public int hashCode() {
+		return 31 * getClass().hashCode();
+	}
+	
+	@Override
+	public boolean equals (Object obj) {
+		if (obj instanceof Borne bo) {
+			return super.equals(obj) && this.km == bo.getKm();
+		}
+		return false;
+	}
 	
 }

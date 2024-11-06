@@ -19,8 +19,8 @@ public class Joueur {
 		return mainJoueur;
 	}
 
-	public void donner(Carte c) {
-		mainJoueur.prendre(c);
+	public void donner(Carte carte) {
+		mainJoueur.prendre(carte);
 	}
 
 	public Carte prendreCarte (Sabot sabot) {
@@ -43,8 +43,8 @@ public class Joueur {
 	
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Joueur j) {
-			return nom.equals(j.toString());
+		if (o instanceof Joueur joueur) {
+			return nom.equals(joueur.toString());
 		}
 		return false;
 	}
@@ -54,12 +54,12 @@ public class Joueur {
 		return zoneDeJeu.donnerKmParcourus();
 	}
 	
-	public void deposer(Carte c) {
-		zoneDeJeu.deposer(c);
+	public void deposer(Carte carte) {
+		zoneDeJeu.deposer(carte);
 	}
 	
-	public boolean estDepotAutorise(Carte c) {
-		return zoneDeJeu.estDepotAutorise(c);
+	public boolean estDepotAutorise(Carte carte) {
+		return zoneDeJeu.estDepotAutorise(carte);
 	}
 	
 }
