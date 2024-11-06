@@ -145,7 +145,9 @@ public class ZoneDeJeu {
 //		 }
 //		 
 //		 return false;
-		 if (limite instanceof FinLimite) {
+		 if (estPrioritaire()) {
+			 return false;
+		 } else if (limite instanceof FinLimite) {
 			 return (donnerSommet(pileLimite) instanceof DebutLimite);
 		 } else {
 			 return (donnerSommet(pileLimite) == null) || donnerSommet(pileLimite) instanceof FinLimite;
@@ -153,7 +155,12 @@ public class ZoneDeJeu {
 	 }
 	
 	public boolean estDepotBatailleAutorise(Bataille bataille) {
-		Bataille s = donnerSommet(pileBataille);
+		Bataille sommet = donnerSommet(pileBataille);
+		
+		if (bottes.contains(new Botte(bataille.getType()))) {
+			return false;
+		}
+		
 		if (bataille instanceof Attaque) {
 			return peutAvancer();
 			//return (s != null) && !s.equals(Cartes.FEU_ROUGE);
@@ -163,7 +170,7 @@ public class ZoneDeJeu {
 			{
 				return estDepotFeuVertAutorise(); // tout simplement
 			} else {
-				return (s instanceof Attaque) && (s.getType().equals(bataille.getType()));
+				return (sommet instanceof Attaque) && (sommet.getType().equals(bataille.getType()));
 			} 	// ai efface (s != null) d'apres recommandation Sonar Lynt
 		}	
 		
@@ -184,6 +191,9 @@ public class ZoneDeJeu {
 		}
 		if (carte instanceof Limite limite) {
 			return estDepotLimiteAutorise(limite);
+		}
+		if (carte instanceof Botte botte) {
+			return true;
 		}
 		return false;		
 	}
